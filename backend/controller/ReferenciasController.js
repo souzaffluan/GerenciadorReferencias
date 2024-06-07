@@ -27,6 +27,22 @@ const createReferencia = async (req, res) => {
   }
 };
 
+//pegar referencias do usuario
+const getReferenciasbyUser = async (req, res) =>{
+
+  try {
+    const userId = req.user._id.toString();
+
+    const referencias = await Referencia.find({usuarioId: userId});
+    res.json({ error: null, referencias: referencias });
+  } catch (error) {
+    return res.status(400).json({ error });
+    
+  }
+
+}
+
 module.exports = {
-    createReferencia
+    createReferencia,
+    getReferenciasbyUser
 }
