@@ -1,35 +1,64 @@
-const mongoose = require("mongoose")
-const {Schema} = mongoose
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 //variavel para discriminar o tipo de referencia
-const options = { discriminatorKey: 'tipo', collection: 'referencias'};
+const options = {
+  discriminatorKey: "tipo",
+  collection: "referencias",
+  timestamps: true,
+};
 
-const referenciaSchema = new Schema({
+const referenciaSchema = new Schema(
+  {
+    titulo: {
+      type: String,
+      require: true,
+    },
 
-    titulo:{
+    subtitulo: {
+      type: String,
+      require: false,
+    },
+
+    autor: {
+      nome:{
         type: String,
         require:true
-    },
-
-    autor:{
+      },
+      sobrenome:{
         type: String,
-        require:true
+        require: true
+      }
     },
-    ano:{
-        type: Number,
-        require:true
+    ano: {
+      type: Number,
+      require: true,
     },
-    usuarioId:{
-        type: mongoose.ObjectId, 
-        ref: 'User', 
-        require:true
-    },options},
-    {
-        timestamps: true
-    }
-
+    usuarioId: {
+      type: mongoose.ObjectId,
+      ref: "User",
+      require: true,
+    },
+  },
+  options
 );
 
 const Referencia = mongoose.model("Referencia", referenciaSchema);
 
-module.exports = Referencia;
+const livroSchema = new Schema({
+  editora: String,
+  edicao: String,
+  datapubli: Date,
+});
+
+const artigoOnlineSchema = new Schema({
+  nomeSite: String,
+  url: String,
+  disponivel: String,
+  acesso: Date,
+});
+
+const Livro = Referencia.discriminator("Livro", livroSchema);
+const Artigo = Referencia.discriminator("Artigo", artigoOnlineSchema);
+
+module.exports = { Referencia, Livro, Artigo };
