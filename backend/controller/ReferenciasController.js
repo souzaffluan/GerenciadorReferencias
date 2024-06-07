@@ -42,7 +42,28 @@ const getReferenciasbyUser = async (req, res) =>{
 
 }
 
+//deletar referencia
+const deleteReferencia = async(req, res)=>{
+  try {
+    const userId = req.user._id.toString();
+    const referenciaId = req.params.id;
+
+    const referencia = await Referencia.findOne({ _id: referenciaId, usuarioId: userId });
+
+    if(!referencia){
+      res.status(404).json({ error: "Náo foi encontrado a referencia" });
+    }
+
+    await Referencia.deleteOne({ _id: referenciaId, usuarioId: userId });
+    res.json({ error: null, message: "Referencia excluida com sucesso!" });
+    
+  } catch (error) {
+    res.status(400).json({ error: "Acesso negado!" });
+  }
+}
+
 module.exports = {
     createReferencia,
-    getReferenciasbyUser
+    getReferenciasbyUser,
+    deleteReferencia
 }
