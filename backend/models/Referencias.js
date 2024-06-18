@@ -70,8 +70,17 @@ const podcastSchema = new Schema({
   acesso: Date,
 })
 
+const revistaSchema = new Schema({
+  tituloRevista: String,
+  local: String,
+  volume: Number,
+  numero: Number,
+  paginas: String
+})
+
 const Livro = Referencia.discriminator("Livro", livroSchema);
 const Artigo = Referencia.discriminator("Artigo", artigoOnlineSchema);
 const Podcast = Referencia.discriminator("Podcast", podcastSchema)
+const Revista = Referencia.discriminator("Revista", revistaSchema)
 
-module.exports = { Referencia, Livro, Artigo, Podcast };
+module.exports = { Referencia, Livro, Artigo, Podcast, Revista };
