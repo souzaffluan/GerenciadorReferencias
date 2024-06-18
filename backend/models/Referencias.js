@@ -58,7 +58,20 @@ const artigoOnlineSchema = new Schema({
   acesso: Date,
 });
 
+const podcastSchema = new Schema({
+  nomePodcast: String,
+  entrevistado: String,
+  entrevistador: String,
+  local:{
+    produtora: String,
+    dataPod: Date
+  },
+  url: String,
+  acesso: Date,
+})
+
 const Livro = Referencia.discriminator("Livro", livroSchema);
 const Artigo = Referencia.discriminator("Artigo", artigoOnlineSchema);
+const Podcast = Referencia.discriminator("Podcast", podcastSchema)
 
-module.exports = { Referencia, Livro, Artigo };
+module.exports = { Referencia, Livro, Artigo, Podcast };

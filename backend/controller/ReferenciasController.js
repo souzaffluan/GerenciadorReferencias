@@ -1,4 +1,4 @@
-const { Referencia, Livro, Artigo } = require("../models/Referencias");
+const { Referencia, Livro, Artigo, Podcast } = require("../models/Referencias");
 
 //criar referencia
 const createReferencia = async (req, res) => {
@@ -14,6 +14,10 @@ const createReferencia = async (req, res) => {
         break;
       case 'Artigo':
         novaReferencia = new Artigo({ ...dados, autor: { nome, sobrenome }, usuarioId: userId });
+        break;
+        
+        case 'Podcast':
+          novaReferencia = new Podcast({ ...dados, autor: { nome, sobrenome }, usuarioId: userId });
         break;
       default:
         return res.status(400).json({ message: 'Tipo de referência inválido' });
