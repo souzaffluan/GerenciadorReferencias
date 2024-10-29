@@ -5,6 +5,7 @@ import {register, reset} from '../../slices/authSlice';
 
 //componentes
 import { Link } from "react-router-dom";
+import Message from '../../components/Message'
 
 //hooks
 import { useState, useEffect } from "react";
@@ -48,9 +49,12 @@ return (
         <input type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} value={email || ""}/>
         <input type="password" placeholder="Senha" onChange={(e) => setSenha(e.target.value)} value={senha || ""}/>
         <input type="password" placeholder="Confirme a senha" onChange={(e) => setConfimaSenha(e.target.value)} value={confirmaSenha || ""}/>
-        <input type="submit" value="Cadastrar"/>
+      
+        {!loading && <input type="submit" value="Cadastrar"></input>}
+        {loading && <input type="submit" value="Aguarde..."></input>}
+        {error && <Message msg={error} type="error"></Message>}
       </form>
-      <p>Já tem conta <Link to="/login"> Clique aqui.</Link></p>
+      <p>Já tem conta? <Link to="/login"> Clique aqui.</Link></p>
     </div>
 );
 }
