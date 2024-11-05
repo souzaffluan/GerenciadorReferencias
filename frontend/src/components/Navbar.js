@@ -59,6 +59,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+              <NavLink to="/create-reference">Criar Referência</NavLink>
+            </li>
+              <li>
                 <span onClick={handlelogout}>Sair</span>
               </li>
           </>

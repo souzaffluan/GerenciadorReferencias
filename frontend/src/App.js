@@ -14,6 +14,7 @@ import { useAuth } from "./hooks/useAuth";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import CreateReferenceForm from './pages/Referencias/CreateReferenceForm'
 
 function App() {
   const { auth, loading } = useAuth();
@@ -43,6 +44,10 @@ function App() {
             <Route
               path="/register"
               element={!auth ? <Register /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/create-reference"
+              element={auth ? <CreateReferenceForm /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>
