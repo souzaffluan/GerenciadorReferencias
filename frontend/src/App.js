@@ -8,29 +8,42 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 
 //Hooks
-import {useAuth} from './hooks/useAuth'
+import { useAuth } from "./hooks/useAuth";
 
 //componentes
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import EditProfile from "./pages/EditProfile/EditProfile";
 
 function App() {
+  const { auth, loading } = useAuth();
 
-  const {auth, loading} = useAuth()
-
-  if(loading){
-    return <p>Carregando...</p>
+  if (loading) {
+    return <p>Carregando...</p>;
   }
-  
+
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={auth ? <Home /> : <Navigate to="/login" />}/>
-            <Route path="/login" element={!auth ? <Login /> : <Navigate to="/"/>}/>
-            <Route path="/register" element={!auth ? <Register /> : <Navigate to="/"/>}/>
+            <Route
+              path="/"
+              element={auth ? <Home /> : <Navigate to="/login" />}
+            />
+             <Route
+              path="/profile"
+              element={auth ? <EditProfile /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/login"
+              element={!auth ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/register"
+              element={!auth ? <Register /> : <Navigate to="/" />}
+            />
           </Routes>
         </div>
         <Footer />
