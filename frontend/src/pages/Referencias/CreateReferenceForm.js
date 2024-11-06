@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CreateReferenceForm.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { createReferencia } from '../../slices/referenciaSlice';
 
@@ -33,39 +34,6 @@ const CreateReferenceForm = () => {
     numero: '',
     paginas: '',
   });
-
-  const buildPayload = (fields, tipo) => {
-    const basePayload = {
-      titulo: fields.titulo,
-      autor: fields.autor,
-      ano: fields.ano,
-      tipo,
-    };
-
-    if (tipo === 'Livro') {
-      return {
-        ...basePayload,
-        editora: fields.editora,
-        edicao: fields.edicao,
-        datapubli: fields.datapubli,
-        paginas: fields.paginas,
-      };
-    } else if (tipo === 'Podcast') {
-      return {
-        ...basePayload,
-        nomePodcast: fields.nomePodcast,
-        local: fields.local,
-      };
-    } else if (tipo === 'Revista') {
-      return {
-        ...basePayload,
-        nomeSite: fields.nomeSite,
-        url: fields.url,
-      };
-    }
-
-    return basePayload;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -124,10 +92,11 @@ const CreateReferenceForm = () => {
   };
 
   return (
+    <div id="criar-referencia">
     <form onSubmit={handleSubmit}>
       <label>
         <span>Tipo de Referência</span>
-        <select name="tipo" value={formData.tipo} onChange={handleChange}>
+        <select id='tipo-ref' name="tipo" value={formData.tipo} onChange={handleChange}>
           <option value="Livro">Livro</option>
           <option value="Artigo">Artigo</option>
           <option value="Podcast">Podcast</option>
@@ -391,6 +360,7 @@ const CreateReferenceForm = () => {
 
       <input type="submit" value="Criar Referência" />
     </form>
+    </div>
   );
 };
 

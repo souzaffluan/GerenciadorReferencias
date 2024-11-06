@@ -5,7 +5,9 @@ import referenciaService from "../services/referenciaService";
 export const createReferencia = createAsyncThunk(
   "referencias/create",
   async (data, { rejectWithValue, getState }) => {
-    const { token } = getState().auth; // Obtém o token de autenticação
+    const { token } = JSON.parse(localStorage.getItem('user')); // Obtém o token de autenticação
+    console.log(localStorage.getItem('user'))
+    console.log(token)
     try {
       await referenciaService.createReferencia(data, token);
       //return response; // Retorna a referência criada
