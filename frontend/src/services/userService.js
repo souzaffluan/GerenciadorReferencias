@@ -16,24 +16,20 @@ const profile = async(data, token) =>{
     }
 }
 
-// Atualizar usuário
+// Update user details
 const updateProfile = async (data, token) => {
     const config = requestConfig("PUT", data, token, true);
-
+  
     try {
-        const res = await fetch(api + "/users", config);
-        const jsonResponse = await res.json();
-
-        // Retornar a resposta ou lançar erro se existir
-        if (!res.ok) throw new Error(jsonResponse.errors || 'Erro ao atualizar perfil');
-        console.log(res)
-
-        return jsonResponse;
+      const res = await fetch(api + "/users/", config)
+        .then((res) => res.json())
+        .catch((err) => err);
+  
+      return res;
     } catch (error) {
-        console.error("Erro no serviço de atualização de perfil:", error);
-        return { errors: [error.message] }; // Retorna o erro em formato esperado pelo slice
+      console.log(error);
     }
-};
+  };
 
 const userService =  {
     profile,

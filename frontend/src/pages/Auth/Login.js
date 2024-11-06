@@ -32,7 +32,8 @@ const Login = () => {
   //limpar todos states
   useEffect(()=>{
     dispatch(reset())
-  }, dispatch);
+  }, [dispatch]);
+  
   return (
     <div id="login">
       <h2>GeRef</h2>
@@ -52,7 +53,7 @@ const Login = () => {
         ></input>
         {!loading && <input type="submit" value="Entrar"></input>}
         {loading && <input type="submit" value="Aguarde..."></input>}
-        {error && <Message msg={error} type="error"></Message>}
+        {error && <Message key="error-message" msg={error} type="error"></Message>}
       </form>
       <p>
         Não tem uma conta? <Link to="/register">Clique aqui.</Link>

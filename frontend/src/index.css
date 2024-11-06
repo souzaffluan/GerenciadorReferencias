@@ -64,6 +64,10 @@ input[type="submit"] {
   cursor: pointer;
   opacity: 0.8;
   font-size: 1em;
+  padding: 12px 20px; /* Tamanho maior */
+  margin-top: 1em; /* Espaçamento superior */
+  max-width: unset;
+  width: 100%;
 }
 
 input[type="submit"] {

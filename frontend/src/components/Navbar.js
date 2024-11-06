@@ -49,7 +49,7 @@ const Navbar = () => {
             </li>
             {user && (
               <li>
-                <NavLink to={`;users/${user._id}`}/>
+                <NavLink key={user.id} to={`;users/${user._id}`}/>
                 <BsFillCameraFill></BsFillCameraFill>
               </li>
             )}

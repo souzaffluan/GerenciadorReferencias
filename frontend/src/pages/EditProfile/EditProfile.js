@@ -22,6 +22,7 @@ const EditProfile = () =>{
 
     // Carregar dados do usuário
     useEffect(() => {
+        console.log(user);
         dispatch(profile());
     }, [dispatch]);
 
@@ -39,6 +40,7 @@ const EditProfile = () =>{
         // Montar objeto com os dados do usuário
         const userData = {
             nome,
+            
         };
         
 
@@ -50,8 +52,11 @@ const EditProfile = () =>{
         const formData = new FormData();
         Object.keys(userData).forEach((key) => formData.append(key, userData[key]));
 
+        console.log(...formData);
+
         // Enviar atualização de perfil
         await dispatch(updateProfile(formData));
+        console.log(typeof nome, typeof email, typeof senha);
 
         // Resetar mensagem após 2 segundos
         setTimeout(() => {
@@ -60,7 +65,7 @@ const EditProfile = () =>{
     };
 
     return (
-        <div id="edit-profile">
+        <div key={user.id}id="edit-profile">
             <h2>Editar seus dados</h2>
             <p className="subtitle">Edite informações de login.</p>
             <form onSubmit={handleSubmit}>
@@ -68,13 +73,13 @@ const EditProfile = () =>{
                     type="text"
                     placeholder="Nome"
                     onChange={(e) => setNome(e.target.value)}
-                    value={nome || ""}
+                    value={typeof nome === 'string' ? nome : ''}
                 />
                 <input
                     type="email"
                     placeholder="Email"
                     disabled
-                    value={email || ""}
+                    value={typeof email === 'string' ? email : ''}
                 />
                 <label>
                     <span>Quer alterar sua senha</span>
@@ -82,7 +87,7 @@ const EditProfile = () =>{
                         type="password"
                         placeholder="Digite sua nova senha"
                         onChange={(e) => setSenha(e.target.value)}
-                        value={senha || ""}
+                        value={typeof senha === 'string' ? senha : ''}
                     />
                 </label>
                 {!loading && <input type="submit" value="Atualizar" />}

@@ -15,29 +15,32 @@ export const profile = createAsyncThunk(
     "user/profile",
     async (user, thunkAPI)=>{
         const token = thunkAPI.getState().auth.user.token
+        
 
         const data = await userService.profile(user, token);
+        console.log("Profile data:", data);
 
         return data;
     }
 )
 
-// Atualizar dados do usuário
+// Update user details
 export const updateProfile = createAsyncThunk(
-    'user/update',
-    async (user, thunkAPI) => {
-        
-        const token = thunkAPI.getState().auth.user.token;
-        console.log(user)
-        const data = await userService.updateProfile(user, token);
+  "user/update",
+  async (user, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
 
-        // Verificar erros
-        if (data.errors) {
-            return thunkAPI.rejectWithValue(data.errors[0]);
-        }
+    const data = await userService.updateProfile(user, token);
 
-        return data;
+    // Check for errors
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
     }
+
+    console.log(data);
+
+    return data;
+  }
 );
 
 
