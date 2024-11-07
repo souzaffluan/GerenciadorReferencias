@@ -91,3 +91,19 @@ input[type="submit"]:hover {
 .hide {
   display: none;
 }
+
+/* Estilo do botão de excluir */
+.delete-btn {
+  background-color: #e74c3c; /* Cor vermelha */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 20px; /* Espaçamento entre o botão e o conteúdo */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b; /* Cor mais escura quando o mouse passa sobre o botão */
+}

@@ -20,7 +20,15 @@ const createReferencia = async (data, token) => {
 
 // Pegar referências do usuário
 const getUserReferencias = async (token) => {
+    
+    console.log(localStorage.getItem('token'));  // Acessa o token do localStorage
+
+    if (!token) {
+        console.error('Token não encontrado no localStorage');
+        throw new Error('Token não encontrado');
+    }
     const config = requestConfig("GET", null, token);
+    
 
     try {
         const res = await fetch(api + "/referencias/usereferencias", config);

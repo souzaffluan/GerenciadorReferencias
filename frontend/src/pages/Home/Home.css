@@ -1,0 +1,41 @@
+.referencias-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adiciona um espaço entre as divs */
+    gap: 20px; /* Adiciona um espaço entre as divs */
+    max-width: 800px; /* Limita a largura máxima das referências */
+    margin: 0 auto; /* Centraliza o conteúdo na tela */
+    padding: 20px; /* Adiciona um espaçamento ao redor da lista */
+  }
+  
+  .referencia-item {
+    border: 1px solid #363636;
+    background-color: #000;  /* Cor de fundo suave */
+    padding: 20px;  /* Espaçamento interno */
+    border-radius: 8px;  /* Bordas arredondadas */
+    max-width: 100%;
+    align-items: center;
+    
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Sombras para destacar as divs */
+    transition: all 0.3s ease-in-out;  /* Animação suave */
+  }
+  
+  .referencia-item:hover {
+    transform: scale(1.02);  /* Leve aumento de tamanho ao passar o mouse */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);  /* Efeito de sombra mais forte */
+  }
+  
+  .referencia-item h3 {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .referencia-item p {
+    font-size: 1em;
+    color: #555;
+  }
+
+  
+
+  

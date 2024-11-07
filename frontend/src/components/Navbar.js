@@ -47,12 +47,7 @@ const Navbar = () => {
                 <BsHouseDoorFill />
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink key={user.id} to={`;users/${user._id}`}/>
-                <BsFillCameraFill></BsFillCameraFill>
-              </li>
-            )}
+            
               <li>
                 <NavLink to="/profile">
                 <BsFillPersonFill />

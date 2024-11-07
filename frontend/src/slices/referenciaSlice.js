@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import referenciaService from "../services/referenciaService";
 
+const initialState = {
+  referencias: [],
+  loading: false,
+  error: null,
+  success: false,
+  message: null
+};
+
 // Ação para criar uma referência
 export const createReferencia = createAsyncThunk(
   "referencias/create",
@@ -21,7 +29,8 @@ export const createReferencia = createAsyncThunk(
 export const getUserReferencias = createAsyncThunk(
   "referencias/getUserReferencias",
   async (_, { rejectWithValue, getState }) => {
-    const { token } = getState().auth; // Obtém o token de autenticação
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    
     try {
       const response = await referenciaService.getUserReferencias(token);
       return response.referencias; // Retorna a lista de referências
@@ -49,9 +58,15 @@ export const updateReferencia = createAsyncThunk(
 export const deleteReferencia = createAsyncThunk(
   "referencias/delete",
   async (id, { rejectWithValue, getState }) => {
-    const { token } = getState().auth; // Obtém o token de autenticação
     try {
-      const response = await referenciaService.deleteReferencia(id, token);
+      // Acesse o token de autenticação do localStorage
+      const {token} = JSON.parse(localStorage.getItem('user'));
+      console.log(token)
+      if (!token || !token.token) {
+        throw new Error('Token de autenticação não encontrado');
+      }
+      await referenciaService.deleteReferencia(id, token);
+      console.log(id)
       return id; // Retorna o ID da referência excluída
     } catch (error) {
       return rejectWithValue(error.errors); // Retorna erro se houver algum problema
@@ -59,21 +74,17 @@ export const deleteReferencia = createAsyncThunk(
   }
 );
 
-// Slice de referências
 const referenciaSlice = createSlice({
   name: "referencias",
-  initialState: {
-    referencias: [],
-    loading: false,
-    error: null,
-    successMessage: "",
-  },
+  initialState, // Usando a variável inicial diretamente
   reducers: {
     clearMessages: (state) => {
       state.error = null;
       state.successMessage = "";
     },
   },
+  
+
   extraReducers: (builder) => {
     // Criar referência
     builder.addCase(createReferencia.pending, (state) => {
