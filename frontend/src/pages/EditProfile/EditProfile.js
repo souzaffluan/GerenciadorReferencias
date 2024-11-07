@@ -56,7 +56,6 @@ const EditProfile = () =>{
 
         // Enviar atualização de perfil
         await dispatch(updateProfile(formData));
-        console.log(typeof nome, typeof email, typeof senha);
 
         // Resetar mensagem após 2 segundos
         setTimeout(() => {
@@ -65,7 +64,7 @@ const EditProfile = () =>{
     };
 
     return (
-        <div key={user.id}id="edit-profile">
+        <div key={user._id}id="edit-profile">
             <h2>Editar seus dados</h2>
             <p className="subtitle">Edite informações de login.</p>
             <form onSubmit={handleSubmit}>

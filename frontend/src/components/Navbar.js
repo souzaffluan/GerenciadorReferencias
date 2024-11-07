@@ -21,6 +21,7 @@ import {
 const Navbar = () => {
   const { auth } = useAuth();
   const { user } = useSelector((state) => state.auth);
+  
 
   const navigate = useNavigate()
 
@@ -29,43 +30,50 @@ const Navbar = () => {
   const handlelogout = () =>{
     dispatch(logout());
     dispatch(reset());
-
     navigate("/login")
   }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // lógica de pesquisa
+  };
+
+  
+
   return (
     <nav id="nav">
       <Link to="/">GeRef</Link>
-      <form id="search-form">
+      <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />
         <input type="text" placeholder="Pesquisar"></input>
       </form>
       <ul id="nav-links">
         {auth ? (
           <>
-            <li>
+            <li key={"home"}>
               <NavLink to="/">
                 <BsHouseDoorFill />
               </NavLink>
             </li>
             
-              <li>
+              <li key={"profile"}>
                 <NavLink to="/profile">
                 <BsFillPersonFill />
                 </NavLink>
               </li>
-              <li>
-              <NavLink to="/create-reference">Criar Referência</NavLink>
+              <li key={"create-reference"}>
+              <NavLink to="/create-reference" >Criar Referência</NavLink>
             </li>
-              <li>
-                <span onClick={handlelogout}>Sair</span>
+              <li key={"logout"}>
+              <NavLink to="/login" onClick={handlelogout}>Sair</NavLink>
               </li>
           </>
         ) : (
           <>
-            <li>
+            <li key={"entrar"}>
               <NavLink to="/login">Entrar</NavLink>
             </li>
-            <li>
+            <li  key={"cadastro"}>
               <NavLink to="/register">Cadastrar</NavLink>
             </li>
           </>

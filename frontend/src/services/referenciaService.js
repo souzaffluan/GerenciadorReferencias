@@ -47,6 +47,7 @@ const getUserReferencias = async (token) => {
 // Deletar referência
 const deleteReferencia = async (id, token) => {
     const config = requestConfig("DELETE", null, token);
+    console.log("Config de requisição:", config);  // Verifique o config
 
     try {
         const res = await fetch(api + `/referencias/deletereferencia/${id}`, config);

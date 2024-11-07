@@ -57,19 +57,23 @@ export const updateReferencia = createAsyncThunk(
 // Ação para excluir uma referência
 export const deleteReferencia = createAsyncThunk(
   "referencias/delete",
-  async (id, { rejectWithValue, getState }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      // Acesse o token de autenticação do localStorage
-      const {token} = JSON.parse(localStorage.getItem('user'));
-      console.log(token)
-      if (!token || !token.token) {
+      // Obter o token do localStorage
+      const user = JSON.parse(localStorage.getItem('user'));
+      
+      if (!user || !user.token) {
         throw new Error('Token de autenticação não encontrado');
+        
       }
-      await referenciaService.deleteReferencia(id, token);
-      console.log(id)
+
+      // Passa o token para o service
+      await referenciaService.deleteReferencia(id, user.token);
+      
       return id; // Retorna o ID da referência excluída
     } catch (error) {
-      return rejectWithValue(error.errors); // Retorna erro se houver algum problema
+      console.error("Erro ao excluir referência:", error);
+      return rejectWithValue(error.message || "Erro ao deletar referência");
     }
   }
 );

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './CreateReferenceForm.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { createReferencia } from '../../slices/referenciaSlice';
+import Message from '../../components/Message';
 
 const CreateReferenceForm = () => {
   const dispatch = useDispatch();
+  const {loading, error} = useSelector((state)=> state.auth);
   const [formData, setFormData] = useState({
     titulo: '',
     autor: {
@@ -359,6 +361,9 @@ const CreateReferenceForm = () => {
       )}
 
       <input type="submit" value="Criar Referência" />
+      {!loading && <input type="submit" value="Entrar"></input>}
+      {loading && <input type="submit" value="Aguarde..."></input>}
+      {error && <Message key="error-message" msg={error} type="error"></Message>}
     </form>
     </div>
   );

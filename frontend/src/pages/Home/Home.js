@@ -12,11 +12,6 @@ const Home = () => {
   // Aqui, acessar o estado corretamente
   const { referencias, loading, error } = useSelector((state) => state.referencias);
 
-  console.log("Estado de referencias:", referencias);
-
-    // Verifique se as variáveis `loading` e `error` estão definidas corretamente
-    console.log("Estado de loading:", loading);
-    console.log("Estado de error:", error);
 
   useEffect(() => {
       dispatch(getUserReferencias());
@@ -45,7 +40,8 @@ const Home = () => {
                   <p>Tipo: {referencia.tipo}</p>
                   <p>Criada em:{new Date(referencia.createdAt).toLocaleString()}</p>
                   <p>Criada em:{new Date(referencia.updatedAt).toLocaleString()}</p>
-                  <button className="delete-btn" onClick={() => handleDelete(referencia.id)}>Excluir</button>
+                  <button className="delete-btn" onClick={() => handleDelete(referencia._id)}>Excluir</button>
+                  
                   
                   {/* Botões de editar e deletar */}
               </div>
