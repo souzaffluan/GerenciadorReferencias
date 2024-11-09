@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import CreateReferenceForm from './pages/Referencias/CreateReferenceForm'
+import EditReferencia from './pages/EditeReferencia/EditReferencia'
 
 function App() {
   const { auth, loading } = useAuth();
@@ -48,6 +49,10 @@ function App() {
             <Route
               path="/create-reference"
               element={auth ? <CreateReferenceForm /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/edit-referencia/:id"
+              element={auth ? <EditReferencia /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>

@@ -78,6 +78,22 @@ export const deleteReferencia = createAsyncThunk(
   }
 );
 
+//pegar referencia por id
+// Ação para buscar uma referência por ID
+export const getReferenciaById = createAsyncThunk(
+  'referencias/getById',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const data = await referenciaService.getReferenciaById(id, token);
+      console.log('Dados da referência:', data);
+      return data; // Retorna os dados da referência do backend
+    } catch (error) {
+      return rejectWithValue(error.response.data.error);
+    }
+  }
+);
+
 const referenciaSlice = createSlice({
   name: "referencias",
   initialState, // Usando a variável inicial diretamente
@@ -150,6 +166,18 @@ const referenciaSlice = createSlice({
     builder.addCase(deleteReferencia.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload; // Exibe o erro
+    })
+    .addCase(getReferenciaById.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(getReferenciaById.fulfilled, (state, action) => {
+      state.loading = false;
+      state.refereciaDetails = action.payload; // Atualiza com os dados da referência
+    })
+    .addCase(getReferenciaById.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload; // Exibe o erro, se houver
     });
   },
 });

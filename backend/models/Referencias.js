@@ -12,32 +12,32 @@ const referenciaSchema = new Schema(
   {
     titulo: {
       type: String,
-      require: true,
+      required: true,
     },
 
     subtitulo: {
       type: String,
-      require: false,
+      required: false,
     },
 
     autor: {
       nome:{
         type: String,
-        require:true
+        required:true
       },
       sobrenome:{
         type: String,
-        require: true
+        required: true
       }
     },
     ano: {
       type: Number,
-      require: true,
+      required: true,
     },
     usuarioId: {
       type: mongoose.ObjectId,
       ref: "User",
-      require: true,
+      required: true,
     },
   },
   options
@@ -62,9 +62,9 @@ const podcastSchema = new Schema({
   nomePodcast: String,
   entrevistado: String,
   entrevistador: String,
-  local:{
+  local: {
     produtora: String,
-    dataPod: Date
+    dataPod: Date,
   },
   url: String,
   acesso: Date,

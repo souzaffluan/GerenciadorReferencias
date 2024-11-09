@@ -360,8 +360,8 @@ const CreateReferenceForm = () => {
         </>
       )}
 
-      <input type="submit" value="Criar Referência" />
-      {!loading && <input type="submit" value="Entrar"></input>}
+     
+      {!loading && <input type="submit" value="Criar Referência"></input>}
       {loading && <input type="submit" value="Aguarde..."></input>}
       {error && <Message key="error-message" msg={error} type="error"></Message>}
     </form>

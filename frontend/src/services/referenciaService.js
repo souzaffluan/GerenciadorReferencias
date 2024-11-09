@@ -1,6 +1,7 @@
 // src/services/referenceService.js
 import { api, requestConfig } from '../utils/config';
 
+
 // Criação de referência
 const createReferencia = async (data, token) => {
     const config = requestConfig("POST", data, token, true);
@@ -81,12 +82,41 @@ const updateReferencia = async (id, data, token) => {
     }
 };
 
+//buscar referencia por id
+// Função para buscar uma referência específica pelo ID
+// referenciaService.js
+const getReferenciaById = async (id, token) => {
+    console.log(localStorage.getItem('token'));  // Acessa o token do localStorage
+
+    if (!token) {
+        console.error('Token não encontrado no localStorage');
+        throw new Error('Token não encontrado');
+    }
+
+    const config = requestConfig("GET", null, token);
+
+    try {
+        const res = await fetch(`${api}/referencias/getref/${id}`, config);  // URL para pegar a referência específica pelo ID
+        const jsonResponse = await res.json();
+
+        // Retornar a resposta ou lançar erro se existir
+        if (!res.ok) throw new Error(jsonResponse.error || 'Erro ao pegar referência');
+
+        
+        return jsonResponse;  // Retorna os dados da referência encontrada
+    } catch (error) {
+        console.error("Erro no serviço de pegar referência por ID:", error);
+        return { errors: [error.message] };  // Retorna o erro em formato esperado pelo slice
+    }
+};
+
 // Exporta as funções do serviço
 const referenciaService = {
     createReferencia,
     getUserReferencias,
     deleteReferencia,
-    updateReferencia
+    updateReferencia,
+    getReferenciaById
 };
 
 export default referenciaService;

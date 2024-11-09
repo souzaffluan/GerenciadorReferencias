@@ -62,6 +62,24 @@ const getReferenciasbyUser = async (req, res) =>{
 
 }
 
+const getReferenciaById = async (req, res) => {
+  try {
+    const referencia = await Referencia.findOne({
+      _id: req.params.id,
+      usuarioId: req.user._id,
+    });
+
+    if (!referencia) {
+      return res.status(404).json({ error: "Referência não encontrada" });
+    }
+
+    res.json({ erro: null, referencia });
+  } catch (error) {
+    console.error("Erro ao buscar referência:", error);
+    res.status(500).json({ error: "Erro ao buscar a referência" });
+  }
+};
+
 // Atualizar referência
 const updateReferencia = async (req, res) => {
   try {
@@ -148,5 +166,6 @@ module.exports = {
     createReferencia,
     getReferenciasbyUser,
     deleteReferencia,
-    updateReferencia
+    updateReferencia,
+    getReferenciaById
 }

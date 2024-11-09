@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserReferencias, deleteReferencia } from "../../slices/referenciaSlice";
 import './Home.css'
 import '../../../src/index.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Message from "../../components/Message";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   // Aqui, acessar o estado corretamente
   const { referencias, loading, error } = useSelector((state) => state.referencias);
@@ -30,12 +31,14 @@ const Home = () => {
       console.error("Erro ao excluir referência:", error);
     }
   };
+  const handleEditRedirect = (id) => {
+    navigate(`/edit-referencia/${id}`); // Rota de edição da referência
+  };
 
   return (
       <div className="referencias-list">
-          <h1>Referências</h1>
           {referencias && referencias.map((referencia) => (
-              <div className="referencia-item" key={referencia._id}>
+              <div className="referencia-item" key={referencia._id} onClick={() => handleEditRedirect(referencia._id)} style={{cursor: "pointer"}}>
                   <h2>{referencia.titulo}</h2>
                   <p>Tipo: {referencia.tipo}</p>
                   <p>Criada em:{new Date(referencia.createdAt).toLocaleString()}</p>
