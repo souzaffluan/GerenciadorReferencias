@@ -2,20 +2,21 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import referenciaService from "../services/referenciaService";
 
 const initialState = {
-  referencias: [],
+  referencias: [], // Iniciando como um array vazio
   loading: false,
   error: null,
   success: false,
-  message: null
+  message: null,
+  referenciaDetails: null,
 };
 
 // Ação para criar uma referência
 export const createReferencia = createAsyncThunk(
   "referencias/create",
   async (data, { rejectWithValue, getState }) => {
-    const { token } = JSON.parse(localStorage.getItem('user')); // Obtém o token de autenticação
-    console.log(localStorage.getItem('user'))
-    console.log(token)
+    const { token } = JSON.parse(localStorage.getItem("user")); // Obtém o token de autenticação
+    console.log(localStorage.getItem("user"));
+    console.log(token);
     try {
       await referenciaService.createReferencia(data, token);
       //return response; // Retorna a referência criada
@@ -29,8 +30,8 @@ export const createReferencia = createAsyncThunk(
 export const getUserReferencias = createAsyncThunk(
   "referencias/getUserReferencias",
   async (_, { rejectWithValue, getState }) => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    
+    const { token } = JSON.parse(localStorage.getItem("user"));
+
     try {
       const response = await referenciaService.getUserReferencias(token);
       return response.referencias; // Retorna a lista de referências
@@ -44,9 +45,13 @@ export const getUserReferencias = createAsyncThunk(
 export const updateReferencia = createAsyncThunk(
   "referencias/update",
   async ({ id, data }, { rejectWithValue, getState }) => {
-    const { token } = getState().auth; // Obtém o token de autenticação
+    const { token } = JSON.parse(localStorage.getItem("user")); // Obtém o token de autenticação
     try {
-      const response = await referenciaService.updateReferencia(id, data, token);
+      const response = await referenciaService.updateReferencia(
+        id,
+        data,
+        token
+      );
       return response; // Retorna a referência atualizada
     } catch (error) {
       return rejectWithValue(error.errors); // Retorna erro caso haja algum problema
@@ -60,16 +65,15 @@ export const deleteReferencia = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       // Obter o token do localStorage
-      const user = JSON.parse(localStorage.getItem('user'));
-      
+      const user = JSON.parse(localStorage.getItem("user"));
+
       if (!user || !user.token) {
-        throw new Error('Token de autenticação não encontrado');
-        
+        throw new Error("Token de autenticação não encontrado");
       }
 
       // Passa o token para o service
       await referenciaService.deleteReferencia(id, user.token);
-      
+
       return id; // Retorna o ID da referência excluída
     } catch (error) {
       console.error("Erro ao excluir referência:", error);
@@ -81,12 +85,12 @@ export const deleteReferencia = createAsyncThunk(
 //pegar referencia por id
 // Ação para buscar uma referência por ID
 export const getReferenciaById = createAsyncThunk(
-  'referencias/getById',
+  "referencias/getById",
   async (id, { rejectWithValue }) => {
     try {
-      const { token } = JSON.parse(localStorage.getItem('user'));
+      const { token } = JSON.parse(localStorage.getItem("user"));
       const data = await referenciaService.getReferenciaById(id, token);
-      console.log('Dados da referência:', data);
+      console.log("Dados da referência:", data);
       return data; // Retorna os dados da referência do backend
     } catch (error) {
       return rejectWithValue(error.response.data.error);
@@ -94,16 +98,14 @@ export const getReferenciaById = createAsyncThunk(
   }
 );
 
-const referenciaSlice = createSlice({
+export const referenciaSlice = createSlice({
   name: "referencias",
   initialState, // Usando a variável inicial diretamente
   reducers: {
-    clearMessages: (state) => {
-      state.error = null;
-      state.successMessage = "";
+    resetReferenciaMessage: (state) => {
+      state.message = null;
     },
   },
-  
 
   extraReducers: (builder) => {
     // Criar referência
@@ -113,7 +115,7 @@ const referenciaSlice = createSlice({
     builder.addCase(createReferencia.fulfilled, (state, action) => {
       state.loading = false;
       state.referencias.push(action.payload); // Adiciona a referência criada à lista
-      state.successMessage = "Referência criada com sucesso!";
+      state.message = "Referência criada com sucesso!";
     });
     builder.addCase(createReferencia.rejected, (state, action) => {
       state.loading = false;
@@ -145,10 +147,11 @@ const referenciaSlice = createSlice({
       if (index !== -1) {
         state.referencias[index] = action.payload; // Atualiza a referência na lista
       }
-      state.successMessage = "Referência atualizada com sucesso!";
+      state.message = "Referência atualizada com sucesso!";
     });
     builder.addCase(updateReferencia.rejected, (state, action) => {
       state.loading = false;
+      state.success = true;
       state.error = action.payload; // Exibe o erro
     });
 
@@ -161,21 +164,22 @@ const referenciaSlice = createSlice({
       state.referencias = state.referencias.filter(
         (ref) => ref._id !== action.payload
       ); // Remove a referência excluída
-      state.successMessage = "Referência excluída com sucesso!";
+      state.success = true;
+      state.message = "Referência excluída com sucesso!";
     });
     builder.addCase(deleteReferencia.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload; // Exibe o erro
-    })
-    .addCase(getReferenciaById.pending, (state) => {
+    });
+    builder.addCase(getReferenciaById.pending, (state) => {
       state.loading = true;
       state.error = null;
-    })
-    .addCase(getReferenciaById.fulfilled, (state, action) => {
+    });
+    builder.addCase(getReferenciaById.fulfilled, (state, action) => {
       state.loading = false;
-      state.refereciaDetails = action.payload; // Atualiza com os dados da referência
-    })
-    .addCase(getReferenciaById.rejected, (state, action) => {
+      state.referenciaDetails = action.payload; // Atualiza com os dados da referência
+    });
+    builder.addCase(getReferenciaById.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload; // Exibe o erro, se houver
     });
@@ -183,7 +187,7 @@ const referenciaSlice = createSlice({
 });
 
 // Ações exportadas
-export const { clearMessages } = referenciaSlice.actions;
+export const { resetReferenciaMessage } = referenciaSlice.actions;
 
 // Exportando o slice
 export default referenciaSlice.reducer;
