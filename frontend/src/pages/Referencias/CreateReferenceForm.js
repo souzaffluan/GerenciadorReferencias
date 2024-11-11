@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import "./CreateReferenceForm.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,8 +8,11 @@ import {
 } from "../../slices/referenciaSlice";
 import Message from "../../components/Message";
 
+
+
 const CreateReferenceForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error, message } = useSelector((state) => state.referencias);
   const [formData, setFormData] = useState({
     titulo: "",
@@ -97,6 +101,7 @@ const CreateReferenceForm = () => {
 
     // Resetar mensagem após 2 segundos
     setTimeout(() => {
+      navigate("/")
       dispatch(resetReferenciaMessage());
     }, 2000);
   };
@@ -112,10 +117,10 @@ const CreateReferenceForm = () => {
             value={formData.tipo}
             onChange={handleChange}
           >
-            <option value="Livro">Livro</option>
-            <option value="Artigo">Artigo</option>
-            <option value="Podcast">Podcast</option>
-            <option value="Revista">Revista</option>
+            <option key={"livro"} value="Livro">Livro</option>
+            <option key={"artigo"} value="Artigo">Artigo</option>
+            <option key={"podcast"}value="Podcast">Podcast</option>
+            <option key={"revista"}value="Revista">Revista</option>
           </select>
         </label>
 

@@ -21,6 +21,7 @@ import {
 const Navbar = () => {
   const { auth } = useAuth();
   const { user } = useSelector((state) => state.auth);
+
   
 
   const navigate = useNavigate()
@@ -40,13 +41,17 @@ const Navbar = () => {
 
   
 
+  
+
   return (
     <nav id="nav">
       <Link to="/">GeRef</Link>
       <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />
         <input type="text" placeholder="Pesquisar"></input>
+        
       </form>
+      
       <ul id="nav-links">
         {auth ? (
           <>

@@ -72,7 +72,7 @@ const podcastSchema = new Schema({
 
 const revistaSchema = new Schema({
   tituloRevista: String,
-  local: String,
+  localRevista: String,
   volume: Number,
   numero: Number,
   paginas: String
