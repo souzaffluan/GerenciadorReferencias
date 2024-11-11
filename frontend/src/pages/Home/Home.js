@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import {
   getUserReferencias,
   deleteReferencia,
@@ -65,7 +68,16 @@ const Home = () => {
                 handleDelete(referencia._id);
               }}
             >
-              Excluir
+              Excluir <FontAwesomeIcon icon={faTrash} style={{ marginLeft: "5px" }} />
+            </button>
+            <button
+              className="copiar-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(referencia._id);
+              }}
+            >
+              Copiar <FontAwesomeIcon icon={faCopy} style={{ marginLeft: "5px" }} />
             </button>
           </div>
         ))}
