@@ -113,7 +113,7 @@ export const referenciaSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createReferencia.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loading = true;
       state.referencias.push(action.payload); // Adiciona a referência criada à lista
       state.message = "Referência criada com sucesso!";
     });

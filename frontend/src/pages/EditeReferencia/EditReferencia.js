@@ -80,7 +80,9 @@ const EditReferencia = () => {
         entrevistador: referenciaDetails.referencia.entrevistador || "",
         local: referenciaDetails.referencia.local || {
           produtora: "",
-          dataPod: "",
+          dataPod: referenciaDetails.referencia.local
+          ? new Date(referenciaDetails.referencia.local.dataPod).toISOString().split("T")[0] // Extrai apenas a data em formato `yyyy-MM-dd`
+          : "",
         },
         tituloRevista: referenciaDetails.referencia.tituloRevista || "",
         localRevista: referenciaDetails.referencia.localRevista || "",
@@ -317,7 +319,7 @@ const EditReferencia = () => {
               />
             </label>
             <label>
-              <span>Data do Podcast</span>
+              <span>Data de publicação</span>
               <input
                 type="date"
                 name="local.dataPod"
@@ -387,15 +389,12 @@ const EditReferencia = () => {
           Atualizar
         </button>
         {/* Exibindo a mensagem de erro, caso haja */}
-      {error && <Message msg={error} type="error" />}
+        {error && <Message msg={error} type="error" />}
 
-{/* Exibindo a mensagem de sucesso, caso haja */}
-{message && <Message msg={message} type="success" />}
-        
+        {/* Exibindo a mensagem de sucesso, caso haja */}
+        {message && <Message msg={message} type="success" />}
       </form>
-      
     </div>
-    
   );
 };
 export default EditReferencia;

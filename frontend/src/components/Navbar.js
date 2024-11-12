@@ -44,7 +44,7 @@ const Navbar = () => {
   
 
   return (
-    <nav id="nav">
+    <nav id="nav" key={"navbar"}>
       <Link to="/">GeRef</Link>
       <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />

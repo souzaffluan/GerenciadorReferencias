@@ -28,8 +28,8 @@ const Home = () => {
     dispatch(getUserReferencias());
   }, [dispatch]);
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  if (loading) return <p key={"carregando"}>Carregando...</p>;
+  if (error) return <p key={"erro"}>Erro: {error}</p>;
 
   const handleDelete = async (id) => {
     try {
