@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import { useState } from "react";
 
+
 //redux
 import { logout, reset } from "../slices/authSlice";
 import { searchReferencias } from "../slices/referenciaSlice";
@@ -41,7 +42,7 @@ const Navbar = () => {
 
   return (
     <nav id="nav" key={"navbar"}>
-      <Link to="/">GeRef</Link>
+      <Link to="/"><img src="/logo.png" alt="logo" class="logo" /></Link>
       <form id="search-form" onSubmit={handleSearch}>
         <BsSearch />
         <input

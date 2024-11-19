@@ -36,7 +36,9 @@ const Login = () => {
   
   return (
     <div id="login">
-      <h2>GeRef</h2>
+      <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo" />
+  </div>
       <p className="subtitle">Faça login para ver suas referências.</p>
       <form onSubmit={handleSubmit}>
         <input

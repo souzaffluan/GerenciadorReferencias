@@ -38,3 +38,20 @@
   font-weight: bold;
   color: #0094f6;
 }
+
+#login img {
+  display: flex; /* Garante que a imagem seja tratada como um bloco */
+  margin: 0 auto 1em; /* Centraliza horizontalmente e adiciona margem inferior */
+}
+
+.logo-container {
+  text-align: center; /* Centraliza o conteúdo da div */
+}
+
+.logo {
+  max-width: 300px; /* Aumente este valor para deixar a imagem maior */
+  max-height: 300px; /* Ajuste proporcionalmente */
+  width: auto; /* Garante que a imagem mantenha a proporção */
+  height: auto; /* Garante que a imagem mantenha a proporção */
+  margin: 0 auto; /* Centraliza horizontalmente */
+}

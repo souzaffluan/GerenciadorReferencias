@@ -59,7 +59,7 @@ const Home = () => {
             <h2>{referencia.titulo}</h2>
             <p>Tipo: {referencia.tipo}</p>
             <p>Criada em:{new Date(referencia.createdAt).toLocaleString()}</p>
-            <p>Criada em:{new Date(referencia.updatedAt).toLocaleString()}</p>
+            <p>Modificada em:{new Date(referencia.updatedAt).toLocaleString()}</p>
             <button
               className="delete-btn"
               onClick={(e) => {

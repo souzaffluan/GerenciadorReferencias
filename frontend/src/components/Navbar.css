@@ -43,3 +43,10 @@
 #nav-links svg{
     font-size: 1.5em;
 }
+
+.logo {
+    width: 60px;   /* Define a largura do logo */
+    height: auto;   /* Mantém a proporção do logo */
+    top: 10px;
+    left: 9px;
+  }
