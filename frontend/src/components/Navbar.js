@@ -46,7 +46,7 @@ const Navbar = () => {
         <BsSearch />
         <input
           type="text"
-          placeholder="Pesquisar"
+          placeholder="Pesquisar por Autor"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o termo de pesquisa
         />
