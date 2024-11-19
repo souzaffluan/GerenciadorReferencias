@@ -98,6 +98,20 @@ export const getReferenciaById = createAsyncThunk(
   }
 );
 
+export const searchReferencias = createAsyncThunk(
+  "referencias/search",
+  async (autor, { rejectWithValue, getState }) => {
+    const { token } =JSON.parse(localStorage.getItem("user"));
+
+    try {
+      const response = await referenciaService.searchReferenciasByAutor(autor, token);
+      return response; // Retorna as referências encontradas
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const referenciaSlice = createSlice({
   name: "referencias",
   initialState, // Usando a variável inicial diretamente
@@ -106,6 +120,7 @@ export const referenciaSlice = createSlice({
       state.message = null;
     },
   },
+
 
   extraReducers: (builder) => {
     // Criar referência
@@ -182,6 +197,17 @@ export const referenciaSlice = createSlice({
     builder.addCase(getReferenciaById.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload; // Exibe o erro, se houver
+    });
+    builder.addCase(searchReferencias.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(searchReferencias.fulfilled, (state, action) => {
+      state.loading = false;
+      state.referencias = action.payload; // Atualiza a lista de referências com o resultado da busca
+    });
+    builder.addCase(searchReferencias.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     });
   },
 });

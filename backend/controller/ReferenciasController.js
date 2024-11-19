@@ -162,10 +162,37 @@ const deleteReferencia = async(req, res)=>{
   }
 }
 
+//BUSCAR REFERENCIA POR AUTOR
+const searchReferenciasByAutor = async (req, res) => {
+  try {
+    const userId = req.user._id.toString();
+    const { autor } = req.query; // Obtém o parâmetro de busca da query string
+
+    if (!autor) {
+      return res.status(400).json({ error: "Parâmetro de busca 'autor' é obrigatório." });
+    }
+
+    // Realiza a busca por nome ou sobrenome
+    const referencias = await Referencia.find({
+      usuarioId: userId,
+      $or: [
+        { "autor.nome": { $regex: autor, $options: "i" } }, // Busca pelo nome (case insensitive)
+        { "autor.sobrenome": { $regex: autor, $options: "i" } } // Busca pelo sobrenome (case insensitive)
+      ],
+    });
+
+    res.json({ error: null, referencias }); // Retorna as referências encontradas
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao buscar referências." });
+  }
+};
+
 module.exports = {
     createReferencia,
     getReferenciasbyUser,
     deleteReferencia,
     updateReferencia,
-    getReferenciaById
+    getReferenciaById,
+    searchReferenciasByAutor
 }
