@@ -109,6 +109,7 @@ const CreateReferenceForm = () => {
   return (
     <div id="criar-referencia">
       <form key={formData.tipo} onSubmit={handleSubmit}>
+        <h2>Criar referencia:</h2>
         <label>
           <span>Tipo de Referência</span>
           <select
