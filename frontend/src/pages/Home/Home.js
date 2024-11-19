@@ -73,7 +73,7 @@ const Home = () => {
               className="copiar-btn"
               onClick={(e) => {
                 e.stopPropagation();
-                handleDelete(referencia._id);
+                
               }}
             >
               Copiar <FontAwesomeIcon icon={faCopy} style={{ marginLeft: "5px" }} />

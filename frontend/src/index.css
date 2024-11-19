@@ -105,12 +105,12 @@ input[type="submit"]:hover {
 }
 
 .delete-btn:hover {
-  background-color: #c0392b; /* Cor mais escura quando o mouse passa sobre o botão */
+  opacity: 1; /* Cor mais escura quando o mouse passa sobre o botão */
 }
 
 /* Estilo do botão de excluir #0c9a47*/
 .copiar-btn {
-  background-color: #0c9a47; /* Cor vermelha */
+  background-color: #0094f6; /* Cor vermelha */
   color: white;
   border: none;
   padding: 8px 16px;
@@ -121,5 +121,5 @@ input[type="submit"]:hover {
 }
 
 .copiar-btn:hover {
-  background-color: #22cb69; /* Cor mais escura quando o mouse passa sobre o botão */
+  opacity: 1; /* Cor mais escura quando o mouse passa sobre o botão */
 }
